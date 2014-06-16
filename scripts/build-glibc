@@ -1,0 +1,13 @@
+CWD=$(pwd)
+LOG=$CWD/logs
+cd $TOOLCHAIN/software
+rm -rf glibc-build
+mkdir glibc-build
+cd glibc-build
+../glibc-2.12.2/configure                   \
+      --prefix=$TOOLCHAIN/usr               \
+      --enable-kernel=2.6.32                \
+  > $LOG/glibc.config.log
+make -j 16 > $LOG/glibc.build.log
+make install -j 16 > $LOG/glibc.install.log
+cd $CWD

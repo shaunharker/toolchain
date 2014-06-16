@@ -1,0 +1,12 @@
+##########################
+MYHOME=/share/data/sharker
+##########################
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+source ~/.bashcolor
+source ~/.bashprompt
+TOOLCHAIN=$MYHOME/Toolchain
+PATH=$TOOLCHAIN/usr/local/bin:$TOOLCHAIN/usr/bin:$PATH
+export TOOLCHAIN PATH MYHOME
+cd $MYHOME

@@ -1,0 +1,38 @@
+#return 0 if $1 < $2, return 1 otherwise
+version-compare() {
+   [ "$1" == "$2" ] && return 1
+   ver1front=`echo $1 | cut -d "." -f -1`
+   ver1back=`echo $1 | cut -d "." -f 2-`
+   ver2front=`echo $2 | cut -d "." -f -1`
+   ver2back=`echo $2 | cut -d "." -f 2-`
+   if [ "$ver1front" != "$1" ] || [ "$ver2front" != "$2" ]; then
+       [ "$ver1front" -gt "$ver2front" ] && return 1
+       [ "$ver1front" -lt "$ver2front" ] && return 0
+       [ "$ver1front" == "$1" ] || [ -z "$ver1back" ] && ver1back=0
+       [ "$ver2front" == "$2" ] || [ -z "$ver2back" ] && ver2back=0
+       version-compare "$ver1back" "$ver2back"
+       return $?
+   else
+           ([ "$1" -gt "$2" ] && return 1) || return 0
+   fi
+}    
+
+# search through $@ for best version of $1
+top-version () {
+  TERM="${1}"
+  shift
+  LIST=("${@}")
+  version="0"
+  RETURNVAL="$version"
+  for item in "${LIST[@]}"
+  do
+    if [[ $item == *${TERM}* ]]; then
+      newversion="${item##*-}"
+      if (version-compare $version $newversion); then
+        version="$newversion"
+        RETURNVAL="$item"
+      fi
+    fi
+  done  
+  echo $RETURNVAL
+}

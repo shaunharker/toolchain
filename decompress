@@ -1,0 +1,42 @@
+#decompress
+
+if [ -z	"$1" ];	then
+  echo Error. Please specify a package.
+  exit 1
+fi
+
+CWD=$(pwd)
+source ./scripts/make-folders
+source ./scripts/top-version
+
+TARBALLS=`ls $TOOLCHAIN/tarballs`
+LIST=()
+for tarball in $TARBALLS; do
+  LIST+=(${tarball%.tar.gz})
+done
+
+ITEM=""
+if [[ "$1" == "all" ]]; then
+  ITEM=$TARBALLS
+else
+  ITEM=$(top-version $1 ${LIST[@]} ).tar.gz
+fi
+
+if [[ "$ITEM" == 0.tar.gz ]]; then
+  echo Error: Could not find a tarball to unpack for \"$1\".
+  exit 1
+fi
+
+cd $TOOLCHAIN/tarballs
+for tarball in $ITEM
+do
+  if [[ $tarball == *.tar.gz ]]; then
+    if [ ! -d $TOOLCHAIN/software/${tarball%.tar.gz} ]; then
+      echo Unpacking $tarball...
+      tar xfz $tarball
+      mv ${tarball%.tar.gz} ../software
+    fi
+  fi
+done
+echo Decompression of {$ITEM} complete.
+cd $CWD

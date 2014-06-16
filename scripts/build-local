@@ -1,0 +1,14 @@
+# Generic Build Script
+SOFT=$1
+CWD=$(pwd)
+LOG=$CWD/logs
+cd $TOOLCHAIN/software
+rm -rf $SOFT-build
+mkdir $SOFT-build
+cd $SOFT-build
+../$SOFT/configure                      \          
+  --prefix=$TOOLCHAIN/usr/local         \
+  > $LOG/$SOFT.config.log
+make -j 16 > $LOG/$SOFT.build.log
+make install -j 16 > $LOG/$SOFT.install.log
+cd $CWD

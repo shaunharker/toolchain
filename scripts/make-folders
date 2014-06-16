@@ -1,0 +1,31 @@
+CWD=$(pwd)
+
+if [ ! -d $TOOLCHAIN ]; then
+  echo Making Toolchain directory
+  mkdir $TOOLCHAIN
+fi
+cd $TOOLCHAIN
+
+if [ ! -d "tarballs" ]; then
+  echo Making tarballs directory
+  mkdir tarballs
+fi
+
+if [ ! -d "software" ]; then
+  echo Making software directory
+  mkdir software
+fi
+
+if [ ! -d "usr" ]; then
+  echo Making usr directory
+  mkdir	usr
+fi
+
+cd usr
+
+if [ ! -d "local" ]; then
+  echo Making usr/local directory
+  mkdir	local
+fi
+
+cd $CWD

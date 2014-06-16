@@ -1,0 +1,55 @@
+CWD=$(pwd)
+
+if [ -z "$1" ]; then
+  echo Error. Please specify a package.
+  exit 1
+fi
+
+source ./scripts/make-folders
+source ./scripts/top-version
+
+SOFTWARE=`ls $TOOLCHAIN/software`
+LIST=()
+for ITEM in $SOFTWARE; do
+  if [[ $ITEM != *build ]]; then
+    LIST+=($ITEM)
+  fi 
+done
+
+if [ "$1" == "all" ]; then
+  ITEM=$SOFTWARE
+else
+  ITEM=$(top-version $1 ${LIST[@]})
+fi
+
+if [ $ITEM == 0 ]; then
+  echo Error. No software package \"$1\" found.
+  exit 1
+fi
+
+for SOFT in $ITEM 
+do
+  echo Building package $SOFT.
+  version=${SOFT##*-}
+  name=${SOFT%-*}
+  if [ "$name" == "gcc" ]; then
+    ./scripts/build-gcc $version
+    continue
+  fi
+
+  if [ "$name" == "glibc" ]; then
+    echo You want me to build $SOFT? GLIBC? Ha!
+    continue
+  fi
+
+  if [ "$name" == "binutils" ]; then
+    echo You want me to build $SOFT? BINUTILS? Ha!
+    continue
+  fi
+
+  echo You want me to build $SOFT? Some weird thing? Ha!!
+  #./scripts/build-local $SOFT
+
+done
+
+echo Finished building.

@@ -1,0 +1,11 @@
+CWD=$(pwd)
+LOG=$CWD/logs
+cd $TOOLCHAIN/software
+rm -rf binutils-native-build
+mkdir binutils-native-build
+cd binutils-native-build
+../binutils-2.24/configure --prefix=$TOOLCHAIN/usr \
+        --enable-shared > $LOG/binutils.config.log
+make -j 16 > $LOG/binutils.build.log
+make install -j 16 > $LOG/binutils.install.log
+cd $CWD

@@ -1,0 +1,69 @@
+toolchain -- Shaun Harker June 12, 2014
+
+SYNOPSIS
+--------
+
+This is a basically a bunch of scripts to help you
+install open-source software. The rationale is that
+things go wrong often. If you are trying to build
+compilers, or glibc, or linux tools, then you are 
+likely to make mistakes and have to redo things.
+Having scripts you can tweak and simply rerun
+the scripts is a big time saver compared to 
+redoing everything by hand.
+
+It has
+* Bash Profile scripts
+* Download scripts
+* Build scripts
+
+Bash Profile scripts
+--------------------
+There are bash scripts to set your environment if you
+want. The requirement is that you export a variable TOOLCHAIN
+and put the $TOOLCHAIN/usr/bin:$TOOLCHAIN/usr/local/bin
+on your $PATH. This is where things will be installed.
+
+Download scripts
+----------------
+The download script will create a folder
+
+-->   $TOOLCHAIN/tarballs
+
+and download the open source projects listed in
+"config/sources.txt" into it.
+(There is a file called bigsources.txt that has a larger list.)
+
+Another script ./decompress with unpack the tarballs into
+a folder 
+
+-->   $TOOLCHAIN/software
+
+
+Build Scripts
+-------------
+There is a build script which checks the name
+of what you are attempting to build. Based on the
+name, it either installs the software into 
+
+-->   $TOOLCHAIN/usr/
+
+or 
+
+-->   $TOOLCHAIN/usr/local
+
+
+There are special build scripts for:
+gcc
+glibc
+binutils
+
+These are the packages which install into $TOOLCHAIN/usr.
+They have specialized build instructions. In particular,
+they require ./configure and make to be executed in a 
+separate build folder.
+
+All others install into $TOOLCHAIN/usr/local.
+For example, "./build bash" would find the highest version 
+bash in $TOOLCHAIN/software and proceed to build it and install it
+in $TOOLCHAIN/usr/local

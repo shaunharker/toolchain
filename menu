@@ -1,0 +1,27 @@
+CWD=$(pwd)
+source ./scripts/make-folders
+source ./scripts/top-version
+echo Listing available versions of $1:
+LIST=()
+SOURCES="`cat $CWD/config/sources.txt`"
+for source in $SOURCES
+do
+  #echo source is $source
+  BASE="${source%.tar.gz}"
+  BASE="${BASE##*/}"
+  #echo base is $BASE
+  if [[ ("$1" == "all") || ("$BASE" == "$1"*)]]; then
+    LIST+=("$BASE")
+    echo + $BASE
+  fi
+done
+
+if [[ -z $LIST ]]; then
+  echo Error. No versions found.
+  exit 1
+fi
+
+if [ "$1" != "all" ]; then
+  ITEM="$(top-version "$1" "${LIST[@]}")"
+  echo Best: $ITEM
+fi

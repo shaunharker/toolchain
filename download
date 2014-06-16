@@ -1,0 +1,40 @@
+
+if [[ -z "$1" ]]; then
+  echo Error. Please specify a package.
+  exit 1
+fi
+
+CWD=$(pwd)
+rm -rf logs
+mkdir logs
+source ./scripts/make-folders
+source ./scripts/top-version
+
+SOURCES=`cat $CWD/config/sources.txt`
+LIST=()
+for ITEM in $SOURCES; do
+  LIST+=(${ITEM%.tar.gz})
+done
+
+if [ "$1" == "all" ]; then
+  resources=$SOURCES
+else
+  resources=$(top-version $1 ${LIST[@]}).tar.gz
+fi
+
+if [[ "$resources" == 0.tar.gz ]]; then
+  echo Error: Could not find resource \"$1\"
+  exit 1
+fi
+
+cd $TOOLCHAIN/tarballs
+for resource in $resources
+do
+  if [ ! -f ${resource##*/} ]; then
+    echo Downloading $resource
+    wget $resource --no-check-certificate
+  fi
+done
+
+echo Download of {$resources} complete.
+cd $CWD

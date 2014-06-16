@@ -1,0 +1,13 @@
+CWD=$(pwd)
+LOG=$CWD/logs
+cd $TOOLCHAIN
+rm -rf usr
+mkdir usr
+mkdir usr/local
+cd $CWD
+
+./scripts/build-gcc > $LOG/gcc.pass1.log
+#./scripts/build-binutils > $LOG/binutils.pass1.log
+#./scripts/build-linux-headers > $LOG/linux-headers.log
+#./scripts/build-glibc >$LOG/glibc.pass1.log
+#./scripts/build-openmpi > $LOG/openmpi.log
