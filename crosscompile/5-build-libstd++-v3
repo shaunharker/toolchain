@@ -1,0 +1,23 @@
+NAME=libstdc++-v3
+VERSION=$1
+PASS=1
+
+# Special case. SOURCEDIR is not actually this,
+# but we need to create the BUILDDIR properly
+SOURCEDIR=${NAME}-${VERSION}
+source ./scripts/enter-build-dir || exit 1
+
+../gcc-$VERSION/libstdc++-v3/configure \
+    --host=$LFS_TGT                    \
+    --prefix=/tools                    \
+    --disable-multilib                 \
+    --disable-shared                   \
+    --disable-nls                      \
+    --disable-libstdcxx-threads        \
+    --disable-libstdcxx-pch            \
+    --with-gxx-include-dir=/tools/$LFS_TGT/include/c++/$VERSION \
+                       > $LOG/$SOURCEDIR.$PASS.config.log
+make -j $PROCS         > $LOG/$SOURCEDIR.$PASS.build.log
+make install -j $PROCS > $LOG/$SOURCEDIR.$PASS.install.log
+
+cd $CWD

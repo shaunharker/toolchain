@@ -1,0 +1,15 @@
+if [ -z $VERSION ]; then
+  echo Error. No version number specified.
+  exit 1
+fi
+
+BUILDDIR=$SOURCEDIR-build-$PASS
+
+CWD=$(pwd)
+LOG=$CWD/logs
+PROCS=32
+
+cd $TOOLCHAIN/software
+rm -rf $BUILDDIR
+mkdir $BUILDDIR
+cd $BUILDDIR

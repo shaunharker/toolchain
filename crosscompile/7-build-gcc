@@ -1,0 +1,18 @@
+NAME=gcc
+VERSION=$1
+PASS=2
+
+SOURCEDIR=${NAME}-${VERSION}
+source ./scripts/enter-build-dir || exit 1
+
+../$SOURCEDIR/configure                            \
+    --prefix=$TOOLCHAIN/usr                        \
+    --with-sysroot=$TOOLCHAIN                      \
+    --enable-languages=c,c++,fortran               \
+    --enable-__cxa_atexit                          \
+    --disable-multilib                             \
+                       > $LOG/$SOURCEDIR.$PASS.config.log
+make -j $PROCS         > $LOG/$SOURCEDIR.$PASS.build.log
+make install -j $PROCS > $LOG/$SOURCEDIR.$PASS.install.log
+
+cd $CWD
