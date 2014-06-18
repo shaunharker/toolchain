@@ -5,6 +5,11 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
+if [ "$1" == "native" ]; then
+  source ./build-native/build-gcc 4.9.0 || exit 1
+  exit 0
+fi
+
 source ./scripts/make-folders
 source ./scripts/top-version
 
@@ -16,11 +21,7 @@ for ITEM in $SOFTWARE; do
   fi 
 done
 
-if [ "$1" == "all" ]; then
-  ITEM=$SOFTWARE
-else
-  ITEM=$(top-version $1 ${LIST[@]})
-fi
+ITEM=$(top-version $1 ${LIST[@]})
 
 if [ $ITEM == 0 ]; then
   echo Error. No software package \"$1\" found.
@@ -33,22 +34,22 @@ do
   version=${SOFT##*-}
   name=${SOFT%-*}
   if [ "$name" == "gcc" ]; then
-    ./scripts/build-gcc $version
+    echo Cannot build gcc, glibc, or binutils with this script. 
     continue
   fi
 
   if [ "$name" == "glibc" ]; then
-    echo You want me to build $SOFT? GLIBC? Ha!
+    echo Cannot	build gcc, glibc, or binutils with this script.
     continue
   fi
 
   if [ "$name" == "binutils" ]; then
-    echo You want me to build $SOFT? BINUTILS? Ha!
+    echo Cannot	build gcc, glibc, or binutils with this script.
     continue
   fi
 
-  echo You want me to build $SOFT? Some weird thing? Ha!!
-  #./scripts/build-local $SOFT
+  echo Building $SOFT
+  ./scripts/build-local $SOFT
 
 done
 

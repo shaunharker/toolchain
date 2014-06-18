@@ -6,7 +6,7 @@ if [ -f /etc/bashrc ]; then
 fi
 source ~/.bashcolor
 source ~/.bashprompt
-TOOLCHAIN=$MYHOME/Toolchain
+TOOLCHAIN=$MYHOME/compiler-toolchain
 PATH=$TOOLCHAIN/usr/local/bin:$TOOLCHAIN/usr/bin:$PATH
 export TOOLCHAIN PATH MYHOME
 cd $MYHOME
