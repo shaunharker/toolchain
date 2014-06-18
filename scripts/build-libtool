@@ -1,0 +1,14 @@
+# Generic Build Script
+SOFT=libtool-2.4.2
+CWD=$(pwd)
+LOG=$CWD/logs
+cd $TOOLCHAIN
+ls
+cd $TOOLCHAIN/software
+rm -rf $SOFT-build
+mkdir $SOFT-build
+cd $SOFT-build
+../$SOFT/configure --prefix=$TOOLCHAIN/usr --with-sysroot=$TOOLCHAIN > $LOG/$SOFT.config.log
+make -j 16 > $LOG/$SOFT.build.log
+make install -j 16 > $LOG/$SOFT.install.log
+cd $CWD

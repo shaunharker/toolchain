@@ -4,10 +4,11 @@ cd $TOOLCHAIN/software
 rm -rf glibc-build
 mkdir glibc-build
 cd glibc-build
-../glibc-2.12.2/configure                   \
-      --prefix=$TOOLCHAIN/usr               \
-      --enable-kernel=2.6.32                \
+../glibc-2.19/configure                         \
+      --prefix=/usr                   \
+      --enable-kernel=2.6.32                    \
+      --with-headers=$TOOLCHAIN/usr/include     \
   > $LOG/glibc.config.log
 make -j 16 > $LOG/glibc.build.log
-make install -j 16 > $LOG/glibc.install.log
+make install_root=${TOOLCHAIN} install -j 16 > $LOG/glibc.install.log
 cd $CWD

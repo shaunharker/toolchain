@@ -2,12 +2,12 @@ CWD=$(pwd)
 LOG=$CWD/logs
 cd $TOOLCHAIN
 rm -rf usr
-mkdir usr
-mkdir usr/local
 cd $CWD
-
-./scripts/build-gcc > $LOG/gcc.pass1.log
-#./scripts/build-binutils > $LOG/binutils.pass1.log
-#./scripts/build-linux-headers > $LOG/linux-headers.log
-#./scripts/build-glibc >$LOG/glibc.pass1.log
+./scripts/make-folders
+./scripts/build-libtool > $LOG/libtool.log
+./scripts/build-binutils > $LOG/binutils.log
+./scripts/build-linux-headers > $LOG/linux.log
+./scripts/build-glibc >$LOG/glibc.log
+./scripts/build-gcc 4.9.0  > $LOG/gcc.log
 #./scripts/build-openmpi > $LOG/openmpi.log
+

@@ -8,14 +8,14 @@ SOURCEDIR=${NAME}-${VERSION}
 source ./scripts/enter-build-dir || exit 1
 
 ../gcc-$VERSION/libstdc++-v3/configure \
-    --host=$LFS_TGT                    \
-    --prefix=/tools                    \
+    --host=$HOST                       \
+    --prefix=$TOOLCHAIN/tools          \
     --disable-multilib                 \
     --disable-shared                   \
     --disable-nls                      \
     --disable-libstdcxx-threads        \
     --disable-libstdcxx-pch            \
-    --with-gxx-include-dir=/tools/$LFS_TGT/include/c++/$VERSION \
+    --with-gxx-include-dir=$TOOLCHAIN/tools/$TARGET/include/c++/$VERSION \
                        > $LOG/$SOURCEDIR.$PASS.config.log
 make -j $PROCS         > $LOG/$SOURCEDIR.$PASS.build.log
 make install -j $PROCS > $LOG/$SOURCEDIR.$PASS.install.log

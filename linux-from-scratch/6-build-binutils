@@ -1,0 +1,24 @@
+NAME=binutils
+VERSION=$1
+PASS=2
+
+SOURCEDIR=${NAME}-${VERSION}
+source ./scripts/enter-build-dir || exit 1
+
+# Question:
+# $TARGET == $HOST, but should i be calling the
+# binaries I'm using $HOST-ar and so forth?
+ 
+CC=$TARGET-gcc                           \
+AR=$TARGET-ar                            \
+RANLIB=$TARGET-ranlib                    \
+../$SOURCEDIR/configure                  \
+    --prefix=$TOOLCHAIN/tools            \
+    --disable-nls                        \
+    --with-lib-path=$TOOLCHAIN/tools/lib \
+    --with-sysroot=$TOOLCHAIN            \
+                       > $LOG/$SOURCEDIR.$PASS.config.log
+make -j $PROCS         > $LOG/$SOURCEDIR.$PASS.build.log
+make install -j $PROCS > $LOG/$SOURCEDIR.$PASS.install.log
+
+cd $CWD

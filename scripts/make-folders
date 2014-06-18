@@ -28,4 +28,11 @@ if [ ! -d "local" ]; then
   mkdir	local
 fi
 
+if [ ! -d "lib" ]; then
+  echo Making usr/lib directory
+  mkdir lib
+fi
+
+ln -sf lib lib64
+
 cd $CWD

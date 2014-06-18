@@ -1,0 +1,19 @@
+NAME=binutils
+VERSION=$1
+PASS=1
+
+SOURCEDIR=${NAME}-${VERSION}
+source ./scripts/enter-build-dir || exit 1
+
+../$SOURCEDIR/configure                  \
+    --prefix=$TOOLCHAIN/tools            \
+    --with-sysroot=$TOOLCHAIN            \
+    --with-lib-path=$TOOLCHAIN/tools/lib \
+    --target=$TARGET                     \
+    --disable-nls                        \
+    --disable-werror                     \
+                       > $LOG/$SOURCEDIR.$PASS.config.log
+make -j $PROCS         > $LOG/$SOURCEDIR.$PASS.build.log
+make install -j $PROCS > $LOG/$SOURCEDIR.$PASS.install.log
+
+cd $CWD

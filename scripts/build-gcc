@@ -22,9 +22,12 @@ cd $TOOLCHAIN/software
 rm -rf gcc-${GCCVERSION}-build
 mkdir gcc-${GCCVERSION}-build
 cd gcc-${GCCVERSION}-build
-../gcc-$GCCVERSION/configure --prefix=$TOOLCHAIN/usr     \
-                             --build=x86_64-redhat-linux \
-                             --disable-multilib          \
+../gcc-$GCCVERSION/configure                       \
+    --prefix=$TOOLCHAIN/usr                        \
+    --with-sysroot=$TOOLCHAIN                      \
+    --enable-languages=c,c++,fortran               \
+    --enable-__cxa_atexit                          \
+    --disable-multilib                             \
      > $LOG/gcc-${GCCVERSION}.config.log
 make -j $PROCS > $LOG/gcc-${GCCVERSION}.build.log
 make install -j $PROCS > $LOG/gcc-${GCCVERSION}.install.log

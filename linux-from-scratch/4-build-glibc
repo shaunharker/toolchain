@@ -1,0 +1,26 @@
+NAME=glibc
+VERSION=$1
+PASS=1
+
+SOURCEDIR=${NAME}-${VERSION}
+source ./scripts/enter-build-dir || exit 1
+
+#Here I differ from LFS since I am not chrooted
+#There is a command I give to make, see below
+
+../$SOURCEDIR/configure                             \
+      --prefix=/tools                               \
+      --host=$HOST                                  \
+      --build=$(../glibc-$VERSION/scripts/config.guess) \
+      --disable-profile                             \
+      --enable-kernel=2.6.32                        \
+      --with-headers=$TOOLCHAIN/tools/include       \
+      libc_cv_forced_unwind=yes                     \
+      libc_cv_ctors_header=yes                      \
+      libc_cv_c_cleanup=yes                         \
+                       > $LOG/$SOURCEDIR.$PASS.config.log
+make -j $PROCS         > $LOG/$SOURCEDIR.$PASS.build.log
+make install_root=${TOOLCHAIN} install -j $PROCS         \
+                       > $LOG/$SOURCEDIR.$PASS.install.log
+
+cd $CWD

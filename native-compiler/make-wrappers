@@ -1,0 +1,9 @@
+CWD2=$(pwd)
+PREFIX=$TOOLCHAIN/usr
+TARGET=$1
+cd ${PREFIX}/bin && rm -f gcc g++ c++ gfortran
+cd $TOOLCHAIN
+sed -e "s#TARGET#${TARGET}#g" -e "s#PREFIX#${PREFIX}#g" $CWD2/native-compiler/gcc-wrapper.sh > ${PREFIX}/bin/gcc
+chmod +x ${PREFIX}/bin/gcc
+cd ${PREFIX}/bin && ln gcc g++ && ln gcc c++ && ln gcc gfortran
+cd $CWD2

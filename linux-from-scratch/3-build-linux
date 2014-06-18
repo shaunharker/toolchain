@@ -1,0 +1,8 @@
+CWD=$(pwd)
+LOG=$CWD/logs
+cd $TOOLCHAIN/software
+cd linux-3.13.3
+make headers_check > $LOG/linux.check.log
+make headers_install INSTALL_HDR_PATH=$TOOLCHAIN/usr/ \
+                   > $LOG/linux.install.log
+cd $CWD

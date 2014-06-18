@@ -4,7 +4,8 @@ if [ -z $VERSION ]; then
 fi
 
 BUILDDIR=$SOURCEDIR-build-$PASS
-
+HOST=x86_64-shaun-linux-gnu
+TARGET=$HOST
 CWD=$(pwd)
 LOG=$CWD/logs
 PROCS=32
