@@ -6,7 +6,7 @@ if [ -z "$1" ]; then
 fi
 
 if [ "$1" == "native" ]; then
-  source ./build-native/build-gcc 4.9.0 || exit 1
+  source ./native-compiler/build-gcc 4.9.0 || exit 1
   exit 0
 fi
 
