@@ -8,5 +8,5 @@ if [ "$?" != "0" ]; then
   cp ./config/bashrc ~/.bashrc
 fi
 
-echo You must include the line "source ~/.bashrc" in 
+echo Success. Note: You must include the line \"source ~/.bashrc\" in 
 echo in your ~/.bash_profile
