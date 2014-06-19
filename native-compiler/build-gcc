@@ -2,6 +2,7 @@ NAME=gcc
 VERSION=$1
 
 rm -rf $COMPILERDIR/$NAME-$VERSION
+mkdir $COMPILERDIR/$NAME-$VERSION
 
 if [ -z $VERSION ]; then
   echo Specify $NAME version number.
