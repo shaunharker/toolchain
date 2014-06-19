@@ -14,17 +14,17 @@ LOG=$CWD/logs
 # Create the source directory
 ./download $NAME-$VERSION
 ./decompress $NAME-$VERSION
-cd ./software
+cd $CWD/software
 SOURCEDIR=$NAME-$VERSION-native
 rm -rf $SOURCEDIR
 cp -rf $NAME-$VERSION $SOURCEDIR
 
 # Download prerequisites
-cd ./software/$SOURCEDIR
+cd $CWD/$SOURCEDIR
 ./contrib/download_prerequisites
 
 # Create build directory
-cd ./software
+cd $CWD/software
 BUILDDIR=$SOURCEDIR-build
 rm -rf $BUILDDIR
 mkdir $BUILDDIR
