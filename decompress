@@ -31,7 +31,7 @@ cd ./tarballs
 for tarball in $ITEM
 do
   if [[ $tarball == *.tar.gz ]]; then
-    if [ ! -d ./software/${tarball%.tar.gz} ]; then
+    if [ ! -d $CWD/software/${tarball%.tar.gz} ]; then
       echo Unpacking $tarball...
       tar xfz $tarball
       mv ${tarball%.tar.gz} ../software

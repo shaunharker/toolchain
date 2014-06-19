@@ -20,7 +20,7 @@ rm -rf $SOURCEDIR
 cp -rf $NAME-$VERSION $SOURCEDIR
 
 # Download prerequisites
-cd $CWD/$SOURCEDIR
+cd $CWD/software/$SOURCEDIR
 ./contrib/download_prerequisites
 
 # Create build directory
