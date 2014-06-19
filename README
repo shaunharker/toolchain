@@ -13,16 +13,19 @@ It has
 
 Bash Profile scripts
 --------------------
-There are bash scripts to set your environment if you
-want. The requirement is that you export a variable TOOLCHAIN
-and put the $TOOLCHAIN/usr/bin:$TOOLCHAIN/usr/local/bin
-on your $PATH. This is where things will be installed.
+There are bash scripts to set your environment. If you
+already have important stuff in your bash scripts, you should
+make backups and merge them together.
+
+Essentially the bash script will:
+* give you a funky colored prompt
+* export variables MYHOME COMPILERDIR COMPILER
 
 Download scripts
 ----------------
 The download script will create a folder
 
--->   $TOOLCHAIN/tarballs
+-->   ./toolchain/tarballs
 
 and download the open source projects listed in
 "config/sources.txt" into it.
@@ -31,7 +34,7 @@ and download the open source projects listed in
 Another script ./decompress with unpack the tarballs into
 a folder 
 
--->   $TOOLCHAIN/software
+-->   ./toolchain/software
 
 
 Build Scripts
@@ -39,18 +42,21 @@ Build Scripts
 There is a build script which checks the name
 of what you are attempting to build.
 
--->   $TOOLCHAIN/usr/local
+Generically it will try to install in
+
+-->   $MYHOME/opt
 
 
 There is a special build option
 
 ./build native
 
-which will attempt to install gcc-4.9.0
-into 
+which will attempt to install $COMPILER
 
+into $COMPILERDIR/$COMPILER
 
--->   $TOOLCHAIN/usr
+(as of this moment it is hardwired to only work
+for gcc-4.9.0 but this will change)
 
 Linux-From-Scratch
 ------------------
