@@ -1,0 +1,19 @@
+## new specfile
+NAME=$1
+VERSION=$2
+if [ -z $NAME ]; then
+  echo Need variables
+fi
+
+CWD=$(pwd)
+cd $COMPILERDIR/$NAME-$VERSION/lib/gcc
+echo * > tmp.txt
+TARGET=`cat tmp.txt`
+rm tmp.txt
+#echo TARGET is .$TARGET.
+cd $TARGET/$VERSION
+gcc -dumpspecs > specs
+sed "s&\%D&\%D -rpath $COMPILERDIR/$NAME-$VERSION/lib64&g" specs > tmp
+rm specs
+mv tmp specs
+cd $CWD

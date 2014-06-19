@@ -45,5 +45,9 @@ make install -j $PROCS > $LOG/$NAME-${VERSION}.install.log
 
 cd $CWD
 
+## new specfile
+source ./native-compiler/replace-spec-file $NAME $VERSION
+
+## wrapper strategy -- defunct
 # Make wrapper so gcc will link to appropriate libraries
-source ./native-compiler/make-wrappers $VERSION
+#source ./native-compiler/make-wrappers $VERSION
