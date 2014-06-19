@@ -1,4 +1,6 @@
 
+CWD=$(pwd)
+
 cp ./config/bashcolor ~/.bashcolor
 cp ./config/bashprompt ~/.bashprompt
 
@@ -7,6 +9,21 @@ if [ "$?" != "0" ]; then
   cp ~/.bashrc ~/.bashrc.bk
   cp ./config/bashrc ~/.bashrc
 fi
+
+cd $MYHOME
+if [ ! -d opt ]; then
+   mkdir opt
+fi
+
+if [ ! -d share ]; then
+  mkdir share
+fi
+
+cd share
+if [ ! -d compilers ]; then
+  mkdir compilers
+fi
+cd $CWD
 
 echo Success. Note: You must include the line \"source ~/.bashrc\" in 
 echo in your ~/.bash_profile
