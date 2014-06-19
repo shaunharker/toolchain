@@ -1,9 +1,15 @@
 CWD2=$(pwd)
-PREFIX=$TOOLCHAIN/usr
-TARGET=$1
-cd ${PREFIX}/bin && rm -f gcc g++ c++ gfortran
-cd $TOOLCHAIN
-sed -e "s#TARGET#${TARGET}#g" -e "s#PREFIX#${PREFIX}#g" $CWD2/native-compiler/gcc-wrapper.sh > ${PREFIX}/bin/gcc
+PREFIX=$COMPILERDIR/$COMPILER
+VERSION=$1
+cd ${PREFIX}/bin 
+mv gcc gcc-$VERSION
+mv g++ g++-$VERSION
+mv c++ c++-$VERSION
+mv gfortran gfortran-$VERSION
+sed -e "s#VERSION#${VERSION}#g" -e "s#PREFIX#${PREFIX}#g" $CWD2/native-compiler/gcc-wrapper.sh > ${PREFIX}/bin/gcc
 chmod +x ${PREFIX}/bin/gcc
-cd ${PREFIX}/bin && ln gcc g++ && ln gcc c++ && ln gcc gfortran
+cd ${PREFIX}/bin 
+cp gcc g++ 
+cp gcc c++ 
+cp gcc gfortran
 cd $CWD2

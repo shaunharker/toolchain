@@ -2,7 +2,7 @@ NAME=gcc
 VERSION=$1
 
 if [ -z $VERSION ]; then
-  echo Specify GCC version number.
+  echo Specify $NAME version number.
   exit 1
 fi
 
@@ -14,35 +14,33 @@ LOG=$CWD/logs
 # Create the source directory
 ./download $NAME-$VERSION
 ./decompress $NAME-$VERSION
-cd $TOOLCHAIN/software
+cd ./software
 SOURCEDIR=$NAME-$VERSION-native
 rm -rf $SOURCEDIR
 cp -rf $NAME-$VERSION $SOURCEDIR
 
 # Download prerequisites
-cd $TOOLCHAIN/software/$SOURCEDIR
+cd ./software/$SOURCEDIR
 ./contrib/download_prerequisites
 
 # Create build directory
-cd $TOOLCHAIN/software
+cd ./software
 BUILDDIR=$SOURCEDIR-build
 rm -rf $BUILDDIR
 mkdir $BUILDDIR
 cd $BUILDDIR
 
-TARGET=x86_64-unknown-linux-gnu
-
 # Configure, make, make install
 ../$SOURCEDIR/configure                            \
-    --prefix=$TOOLCHAIN/usr                        \
+    --prefix=$COMPILERDIR/$NAME-$VERSION             \
     --enable-languages=c,c++,fortran               \
     --enable-__cxa_atexit                          \
     --disable-multilib                             \
-                   > $LOG/gcc-${VERSION}.config.log
-make -j $PROCS > $LOG/gcc-${VERSION}.build.log
-make install -j $PROCS > $LOG/gcc-${VERSION}.install.log
+                   > $LOG/$NAME-${VERSION}.config.log
+make -j $PROCS > $LOG/$NAME-${VERSION}.build.log
+make install -j $PROCS > $LOG/$NAME-${VERSION}.install.log
 
 cd $CWD
 
 # Make wrapper so gcc will link to appropriate libraries
-source ./native-compiler/make-wrappers $TARGET
+source ./native-compiler/make-wrappers $VERSION

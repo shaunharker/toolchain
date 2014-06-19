@@ -27,7 +27,7 @@ if [[ "$resources" == 0.tar.gz ]]; then
   exit 1
 fi
 
-cd $TOOLCHAIN/tarballs
+cd ./tarballs
 for resource in $resources
 do
   if [ ! -f ${resource##*/} ]; then

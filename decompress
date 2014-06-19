@@ -9,7 +9,7 @@ CWD=$(pwd)
 source ./scripts/make-folders
 source ./scripts/top-version
 
-TARBALLS=`ls $TOOLCHAIN/tarballs`
+TARBALLS=`ls ./tarballs`
 LIST=()
 for tarball in $TARBALLS; do
   LIST+=(${tarball%.tar.gz})
@@ -27,11 +27,11 @@ if [[ "$ITEM" == 0.tar.gz ]]; then
   exit 1
 fi
 
-cd $TOOLCHAIN/tarballs
+cd ./tarballs
 for tarball in $ITEM
 do
   if [[ $tarball == *.tar.gz ]]; then
-    if [ ! -d $TOOLCHAIN/software/${tarball%.tar.gz} ]; then
+    if [ ! -d ./software/${tarball%.tar.gz} ]; then
       echo Unpacking $tarball...
       tar xfz $tarball
       mv ${tarball%.tar.gz} ../software

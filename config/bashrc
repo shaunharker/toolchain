@@ -6,7 +6,8 @@ if [ -f /etc/bashrc ]; then
 fi
 source ~/.bashcolor
 source ~/.bashprompt
-TOOLCHAIN=$MYHOME/compiler-toolchain
-PATH=$TOOLCHAIN/usr/local/bin:$TOOLCHAIN/usr/bin:$PATH
-export TOOLCHAIN PATH MYHOME
+COMPILERDIR=$MYHOME/share/compilers
+COMPILER=gcc-4.9.0
+PATH=$COMPILERDIR/$COMPILER/bin:$PATH
+export COMPILERDIR COMPILER PATH MYHOME
 cd $MYHOME

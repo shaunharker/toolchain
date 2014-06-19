@@ -13,7 +13,7 @@ fi
 source ./scripts/make-folders
 source ./scripts/top-version
 
-SOFTWARE=`ls $TOOLCHAIN/software`
+SOFTWARE=`ls ./software`
 LIST=()
 for ITEM in $SOFTWARE; do
   if [[ $ITEM != *build ]]; then

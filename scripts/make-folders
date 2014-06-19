@@ -1,11 +1,5 @@
 CWD=$(pwd)
 
-if [ ! -d $TOOLCHAIN ]; then
-  echo Making Toolchain directory
-  mkdir $TOOLCHAIN
-fi
-cd $TOOLCHAIN
-
 if [ ! -d "tarballs" ]; then
   echo Making tarballs directory
   mkdir tarballs
@@ -15,24 +9,5 @@ if [ ! -d "software" ]; then
   echo Making software directory
   mkdir software
 fi
-
-if [ ! -d "usr" ]; then
-  echo Making usr directory
-  mkdir	usr
-fi
-
-cd usr
-
-if [ ! -d "local" ]; then
-  echo Making usr/local directory
-  mkdir	local
-fi
-
-if [ ! -d "lib" ]; then
-  echo Making usr/lib directory
-  mkdir lib
-fi
-
-ln -sf lib lib64
 
 cd $CWD

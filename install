@@ -2,10 +2,11 @@
 cp ./config/bashcolor ~/.bashcolor
 cp ./config/bashprompt ~/.bashprompt
 
-cmp --silent bashprofile ~/.bash_profile
+cmp --silent ./config/bashrc ~/.bashrc
 if [ "$?" != "0" ]; then
-  cp ~/.bash_profile ~/.bash_profile.bk
   cp ~/.bashrc ~/.bashrc.bk
-  cp ./config/bashprofile ~/.bash_profile
   cp ./config/bashprofile ~/.bashrc
 fi
+
+echo You must include the line "source ~/.bashrc" in 
+echo in your ~/.bash_profile
