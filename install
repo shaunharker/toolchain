@@ -5,7 +5,7 @@ cp ./config/bashprompt ~/.bashprompt
 cmp --silent ./config/bashrc ~/.bashrc
 if [ "$?" != "0" ]; then
   cp ~/.bashrc ~/.bashrc.bk
-  cp ./config/bashprofile ~/.bashrc
+  cp ./config/bashrc ~/.bashrc
 fi
 
 echo You must include the line "source ~/.bashrc" in 
